@@ -3,48 +3,43 @@ import { auth } from '@/utils/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useRouter } from 'next/router';
 import { BsFillMoonStarsFill } from 'react-icons/bs';
+import { Button, Text, Box, HStack, Spacer } from '@chakra-ui/react';
 
 export default function Nav({ darkMode, setDarkMode })
 {
     const [user, loading] = useAuthState(auth);
 
     const route = useRouter();
-console.log("USER: " + JSON.stringify(user));
+
     function logout()
     {
         auth.signOut()
 
-        route.push('/auth/login');
+        route.push('/');
     }
 
     return (
-        <nav className="flex flex-col md:flex-row justify-between items-center py-10">
+        <HStack p="4">
             <Link href={"/dashboard"}>
-                <button className="text-3xl font-bold text-cyan-500">Pigeon Koop</button>
+                <Button variant="link" size={'lg'}>Pigeon Koop</Button>
             </Link> 
+            <Spacer />
+            <Box>
             {
                 user &&
                 (
-                    <div className="flex items-center gap-5 mt-5 md:mt-0">
-                        <ul>
-                            <BsFillMoonStarsFill onClick={() => setDarkMode(!darkMode)} className="cursor-pointer text-3xl" stroke={darkMode ? "white" : "black"} fill={darkMode ? "white" : "black"}/>
-                        </ul>
+                    <HStack>
+                        <BsFillMoonStarsFill onClick={() => setDarkMode(!darkMode)} className="cursor-pointer text-3xl" stroke={darkMode ? "white" : "black"} fill={darkMode ? "white" : "black"}/>
 
-                        <ul className="">
-                            <Link href={"/recipe"}>Link 1</Link>
-                        </ul>
+                        <Link href={"/recipe"}>Link 1</Link>
 
-                        <ul className="">
-                            <Link href={"/recipeSearch"}>Link 2</Link>
-                        </ul>
-                        
-                        <ul className="">
-                            <button onClick={() => logout() }>Logout</button>
-                        </ul>
-                    </div>
+                        <Link href={"/recipeSearch"}>Link 2</Link>
+
+                        <Button size={'md'} onClick={() => logout() }>Logout</Button>
+                    </HStack>
                 ) 
             }
-         
-        </nav>
+            </Box>
+        </HStack>
     )
 }
