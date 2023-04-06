@@ -63,3 +63,9 @@ section .air.air4{
     background-position-x: -1000px; 
   }
 }
+
+.widget-div {
+  min-height: 98px;
+  height: 98px;
+  box-shadow: 0 4px 5px -2px rgba(0,0,0,.5);
+}
