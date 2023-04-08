@@ -1,4 +1,4 @@
-const getDateRange = (start, end) => {
+export function getDateRange(start, end) {
         
     for(var arr=[],dt=new Date(start); dt<=end; dt.setDate(dt.getDate()+1)){
         arr.push(new Date(dt));
@@ -9,12 +9,12 @@ const getDateRange = (start, end) => {
     return arr;
 }
 
-const checkPeopleInput = (people) => {
+export function checkPeopleInput(people) {
     let regex = /[A-Za-z]/
     return regex.test(people)
 }
 
-const formatDate = (date) => {
+export function formatDate(date) {
     
     var d = new Date(date);
     var month = '' + (d.getMonth() + 1);
@@ -28,9 +28,3 @@ const formatDate = (date) => {
 
     return [month, day, year].join('-');
 }
-
-export default {
-    getDateRange,
-    checkPeopleInput,
-    formatDate,
-};
