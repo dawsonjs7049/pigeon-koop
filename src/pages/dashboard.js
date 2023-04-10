@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Event from "@/models/Event";
 import { Text, VStack } from "@chakra-ui/react";
+import WeatherWidget from "@/components/WeatherWidget";
 
 
 export default function Dashboard() {
@@ -46,17 +47,8 @@ export default function Dashboard() {
 
     return (
         <div>
+            <WeatherWidget/>
             <Text>Welcome {name}</Text>
-            <div className="widget-div">
-                <a 
-                    className="weatherwidget-io" 
-                    href="https://forecast7.com/en/45d88n92d37/webster/?unit=us" 
-                    data-label_1="WEBSTER" 
-                    data-label_2="WEATHER" 
-                    data-theme="original" 
-                    >WEBSTER WEATHER
-                </a>
-            </div>
             <VStack w="100%" h="1000px" maxW='1300px' p='10' >
                 <Calendar events={events} user={user} db={db} name={name} />
             </VStack>
