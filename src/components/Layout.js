@@ -15,7 +15,7 @@ export default function Layout({ children })
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <div>
-                <div style={{height: '100vh', width: '100vw'}}>
+                <div style={{height: '100vh', width: '100vw', overflowX: 'hidden'}}>
                     <Nav darkMode={darkMode} setDarkMode={setDarkMode}/>
                     <main>
                         { children }

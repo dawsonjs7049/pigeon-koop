@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Event from "@/models/Event";
-import { Text, VStack } from "@chakra-ui/react";
+import { Box, Flex, Text, VStack } from "@chakra-ui/react";
 import WeatherWidget from "@/components/WeatherWidget";
 
 
@@ -46,12 +46,14 @@ export default function Dashboard() {
     }, [user, loading]);
 
     return (
-        <div>
+        <Box overflowX='hidden'>
             <WeatherWidget/>
-            <Text>Welcome {name}</Text>
-            <VStack w="100%" h="1000px" maxW='1300px' p='10' >
-                <Calendar events={events} user={user} db={db} name={name} />
-            </VStack>
-        </div>
+            <Flex justifyContent='center'>
+                <VStack w='100%' maxW="1300px">
+                    <Text>Welcome {name}</Text>
+                    <Calendar events={events} user={user} db={db} name={name} />
+                </VStack>
+            </Flex>
+        </Box>
     )
 }
