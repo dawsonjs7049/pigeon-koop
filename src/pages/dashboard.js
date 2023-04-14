@@ -36,8 +36,7 @@ export default function Dashboard() {
                 let events = snapshot.docs.map((doc) => {
                     return new Event({ ...doc.data(), id: doc.id });
                 });
-                console.log("EVENTS");
-                console.log(events);
+
                 setEvents(events);
             });
 
@@ -49,7 +48,7 @@ export default function Dashboard() {
         <Box overflowX='hidden'>
             <WeatherWidget/>
             <Flex justifyContent='center'>
-                <VStack w='100%' maxW="1300px">
+                <VStack w='100%' maxW="1300px" p='5'>
                     <Text>Welcome {name}</Text>
                     <Calendar events={events} user={user} db={db} name={name} />
                 </VStack>

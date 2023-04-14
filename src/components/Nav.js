@@ -32,7 +32,7 @@ export default function Nav({ darkMode, setDarkMode })
                         <HStack>
                             <BsFillMoonStarsFill onClick={() => setDarkMode(!darkMode)} className="cursor-pointer text-3xl" stroke={darkMode ? "white" : "black"} fill={darkMode ? "white" : "black"}/>
 
-                            <Link href={"/recipe"}>Link 1</Link>
+                            <Link href={"/photos"}>Photos</Link>
 
                             <Link href={"/recipeSearch"}>Link 2</Link>
 
