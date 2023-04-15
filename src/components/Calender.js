@@ -32,8 +32,7 @@ export default function Calendar({ events, user, db, name }) {
 
     const onSelect = (info) => {
         let dates = getDateRange(info.start, info.end);
-        console.log("DATES");
-        console.log(dates);
+
         // if selected dates has dates user already booked, filter out all non-user booked dates and open cancellation modal
         let userEvents = [];
         dates.forEach((date) => {
@@ -49,8 +48,7 @@ export default function Calendar({ events, user, db, name }) {
 
                 // return ( (String(event.fullDate) === String(date)) && (event.user == user.email) )
             })
-            console.log("EVENT");
-            console.log(event);
+
             if(event[0])
             {
                 // if an event was returned, then this date is taken by the user already
@@ -65,9 +63,7 @@ export default function Calendar({ events, user, db, name }) {
             // var dateRangeString = (userEvents.length > 1 ? formatDate(userEvents[0].date) + "  ->  " + formatDate(userEvents[userEvents.length - 1].date) : formatDate(userEvents[0].date));
             setDateString(dateRangeString);
             setSelectedDates(userEvents);
-            console.log("CANCEL: " + dateRangeString);
-            console.log("USER EVENTS");
-            console.log(userEvents);
+
             cancelOnOpen();
         }
         else
