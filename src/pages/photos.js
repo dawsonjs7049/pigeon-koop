@@ -8,6 +8,7 @@ import styles from '@/styles/Photos.module.css'
 import ReactImageGallery from "react-image-gallery";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { formatDate } from "@/utils/utilities";
+import CommentContainer from "@/components/CommentContainer";
 
 export default function Photos() {
 
@@ -16,6 +17,7 @@ export default function Photos() {
     const [uploadImage, setUploadImage] = useState(null);
     const [isUploading, setIsUploading] = useState(false);
     const [comment, setComment] = useState();
+    const [currentGalleryImage, setCurrentGalleryImage] = useState();
 
     const toast = useToast();
 
@@ -33,6 +35,10 @@ export default function Photos() {
             console.log("images");
             console.log(images);
             setImages(images);
+
+            console.log("SETTING CURRENT GALLERY IMAGE");
+            console.log(images[0]);
+            setCurrentGalleryImage(images[0]);
         });
 
         return unsubscribe;
@@ -108,9 +114,13 @@ export default function Photos() {
                     items={images.map((imageObj) => { 
                         return { original: imageObj.url, thumbnail: imageObj.url, thumbnailHeight: '200px', thumbnailWidth: '200px' }
                     })}
+                    onSlide={(index) => setCurrentGalleryImage(images[index])}
                 />
             </Box>
-
+            { currentGalleryImage &&
+                    <CommentContainer photoId={currentGalleryImage.id} />
+            }
+            
             <Modal isOpen={uploadIsOpen} onClose={uploadOnClose}>
                 <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px) hue-rotate(90deg)' />
                 <ModalContent h='fit-content'>
