@@ -82,7 +82,7 @@ export default function Photos() {
             owner: user.email,
             date: formatDate(new Date()),
             timestamp: serverTimestamp(),
-            imageURL: url,
+            url: url,
             filename: `cabinPictures/${uploadImage.name}`,
         });
 
@@ -118,9 +118,9 @@ export default function Photos() {
                 />
             </Box>
             { currentGalleryImage &&
-                    <CommentContainer photoId={currentGalleryImage.id} />
+                    <CommentContainer photoId={currentGalleryImage.id} user={user} />
             }
-            
+
             <Modal isOpen={uploadIsOpen} onClose={uploadOnClose}>
                 <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px) hue-rotate(90deg)' />
                 <ModalContent h='fit-content'>

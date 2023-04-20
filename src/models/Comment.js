@@ -6,8 +6,8 @@ export default class Comment {
             this.comment = '';
             this.date = '';
             this.timestamp = '';
-            this.pictureId = -1;
-            this.likes = 0;
+            this.photoId = -1;
+            this.likes = [];
             this.id = -1;
         }
         else 
@@ -16,7 +16,7 @@ export default class Comment {
             this.comment = comment.comment;
             this.date = comment.date;
             this.timestamp = comment.timestamp;
-            this.pictureId = comment.pictureId;
+            this.photoId = comment.photoId;
             this.likes = comment.likes;
             this.id = comment.id;
         }
