@@ -1,0 +1,1 @@
+- Filters for photo gallery (my photos, photos from last month/year)

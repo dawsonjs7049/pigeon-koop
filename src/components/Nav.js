@@ -34,7 +34,7 @@ export default function Nav({ darkMode, setDarkMode })
 
                             <Link href={"/photos"}>Photos</Link>
 
-                            <Link href={"/recipeSearch"}>Link 2</Link>
+                            <Link href={"/expenses"}>Expenses</Link>
 
                             <Button size={'md'} onClick={() => logout() }>Logout</Button>
                         </HStack>

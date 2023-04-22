@@ -28,3 +28,10 @@ export function formatDate(date) {
 
     return [month, day, year].join('-');
 }
+
+export function getTimestamp(months) {
+    const date = new Date();
+    date.setMonth(date.getMonth() - months);
+
+    return (date.getTime() / 1000);
+}
