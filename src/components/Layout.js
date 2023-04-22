@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Nav from './Nav';
 import Head from 'next/head';
+import { Box, HStack, Text } from '@chakra-ui/react';
 
 export default function Layout({ children })
 {
@@ -20,6 +21,9 @@ export default function Layout({ children })
                     <main>
                         { children }
                     </main>
+                    <HStack h='10' bg='gray.700' w='100%' justifyContent='center' alignItems='center' position='absolute' bottom='0'>
+                        <Text color='white' fontWeight='bold'>Notice a problem? Deal with it</Text>
+                    </HStack>
                 </div>
             </div> 
         </>
