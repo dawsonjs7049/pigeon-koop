@@ -163,7 +163,7 @@ export default function Calendar({ events, user, db, name }) {
 
     return (
         <>
-            <Box shadow='lg' borderRadius={"md"} w="100%" h="1000px" p='5'>
+            <Box shadow='lg' borderRadius={"md"} w="100%" h="1000px" p='5' bgColor='white' color='black'>
                 <FullCalendar
                     plugins={[ dayGridPlugin, interactionPlugin, googleCalendarPlugin ]}
                     ref={calendarRef}

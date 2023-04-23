@@ -211,7 +211,7 @@ export default function Expenses() {
     return (
         <Flex justifyContent='center'>
             <VStack w='100%' maxW="1300px" p='5'>
-                <Box mt='15' w='100%'>
+                <Box mt='16' w='100%'>
                     <HStack w='100%'>
                         <Text fontSize="2xl" fontWeight="bold" textAlign='start'>Expense Tracking</Text>
                         <Spacer/>

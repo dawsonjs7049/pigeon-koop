@@ -3,11 +3,12 @@ import { auth } from '@/utils/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useRouter } from 'next/router';
 import { BsFillMoonStarsFill, BsArrowDown } from 'react-icons/bs';
-import { Button, Text, Box, HStack, Spacer, Flex, VStack, Collapse, useDisclosure, SlideFade, Divider } from '@chakra-ui/react';
+import { Button, Text, Box, HStack, Spacer, Flex, VStack, Collapse, useDisclosure, SlideFade, Divider, useColorMode } from '@chakra-ui/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { MdLogout } from 'react-icons/md';
+import { HiOutlineSun } from 'react-icons/hi';
 
-export default function Nav({ darkMode, setDarkMode })
+export default function Nav({ toggleColor, isDarkMode, setIsDarkMode })
 {
     const [user, loading] = useAuthState(auth);
 
@@ -36,11 +37,28 @@ export default function Nav({ darkMode, setDarkMode })
                         (
                             <HStack h='60px' alignItems='center'>
                                 <VStack justifyContent='center' alignItems='center' px='5' h='100%'>
-                                    <BsFillMoonStarsFill fontSize='20px' color='white'/>
+                                    { isDarkMode ? (
+                                        <HiOutlineSun
+                                            fontSize='25px' 
+                                            color='white' 
+                                            onClick={() => {
+                                                toggleColor();
+                                                setIsDarkMode(!isDarkMode);
+                                            }}
+                                            cursor='pointer'/>
+                                    ) : (
+                                        <BsFillMoonStarsFill 
+                                            fontSize='20px' 
+                                            color='white' 
+                                            onClick={() => {
+                                                toggleColor();
+                                                setIsDarkMode(!isDarkMode);
+                                            }}
+                                            cursor='pointer'/>
+                                    )}
                                 </VStack>
                                 <Divider orientation='vertical' borderWidth='2px' borderRadius='xl' borderColor='white'></Divider>
                                 <VStack justifyContent='center' alignItems='center' px='5' h='100%' onMouseEnter={onToggle}>
-                                    {/* <Text fontSize='18px' fontWeight='bold' color='white'>Navigate</Text> */}
                                     <BsArrowDown fontSize='25px' color='white'></BsArrowDown>
                                 </VStack>
                                 <Divider orientation='vertical' borderWidth='2px' borderRadius='xl' borderColor='white'></Divider>

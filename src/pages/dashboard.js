@@ -45,11 +45,11 @@ export default function Dashboard() {
     }, [user, loading]);
 
     return (
-        <Box overflowX='hidden'>
+        <Box overflowX='hidden' height='max'>
             <WeatherWidget/>
             <Flex justifyContent='center'>
-                <VStack w='100%' maxW="1300px" p='5'>
-                    <Text>Welcome {name}</Text>
+                <VStack w='100%' maxW="1300px" p='5' height='max'>
+                    <Text fontWeight='bold' fontSize='2xl' my='7'>Welcome {name}</Text>
                     <Calendar events={events} user={user} db={db} name={name} />
                 </VStack>
             </Flex>
