@@ -19,6 +19,7 @@ export default function WeatherWidget() {
       data-label_1="WEBSTER"
       data-label_2="WEATHER"
       data-theme="original"
+      style={{ minHeight: '40px' }}
     >
       WEBSTER WEATHER
     </a>

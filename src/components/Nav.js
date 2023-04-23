@@ -2,12 +2,16 @@ import Link from 'next/link';
 import { auth } from '@/utils/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useRouter } from 'next/router';
-import { BsFillMoonStarsFill } from 'react-icons/bs';
-import { Button, Text, Box, HStack, Spacer, Flex } from '@chakra-ui/react';
+import { BsFillMoonStarsFill, BsArrowDown } from 'react-icons/bs';
+import { Button, Text, Box, HStack, Spacer, Flex, VStack, Collapse, useDisclosure, SlideFade, Divider } from '@chakra-ui/react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { MdLogout } from 'react-icons/md';
 
 export default function Nav({ darkMode, setDarkMode })
 {
     const [user, loading] = useAuthState(auth);
+
+    const { isOpen, onToggle } = useDisclosure();
 
     const route = useRouter();
 
@@ -20,28 +24,125 @@ export default function Nav({ darkMode, setDarkMode })
 
     return (
         <Flex justifyContent='center'>
-            <HStack p="4" w='100%' maxW='1300px'>
-                <Link href={"/dashboard"}>
-                    <Button variant="link" size={'lg'}>Pigeon Koop</Button>
-                </Link> 
-                <Spacer />
-                <Box>
-                {
-                    user &&
-                    (
-                        <HStack>
-                            <BsFillMoonStarsFill onClick={() => setDarkMode(!darkMode)} className="cursor-pointer text-3xl" stroke={darkMode ? "white" : "black"} fill={darkMode ? "white" : "black"}/>
-
-                            <Link href={"/photos"}>Photos</Link>
-
-                            <Link href={"/expenses"}>Expenses</Link>
-
-                            <Button size={'md'} onClick={() => logout() }>Logout</Button>
-                        </HStack>
-                    ) 
-                }
+            <VStack w='100%' maxW='1300px' bg='blue.500'>
+                <HStack px="4" pt='2' w='100%'>
+                    <Link href={"/dashboard"}>
+                        <Text fontSize='2xl' fontWeight='bold' color='white'>Pigeon Koop</Text>
+                    </Link> 
+                    <Spacer />
+                    <Box>
+                    {
+                        user &&
+                        (
+                            <HStack h='60px' alignItems='center'>
+                                <VStack justifyContent='center' alignItems='center' px='5' h='100%'>
+                                    <BsFillMoonStarsFill fontSize='20px' color='white'/>
+                                </VStack>
+                                <Divider orientation='vertical' borderWidth='2px' borderRadius='xl' borderColor='white'></Divider>
+                                <VStack justifyContent='center' alignItems='center' px='5' h='100%' onMouseEnter={onToggle}>
+                                    {/* <Text fontSize='18px' fontWeight='bold' color='white'>Navigate</Text> */}
+                                    <BsArrowDown fontSize='25px' color='white'></BsArrowDown>
+                                </VStack>
+                                <Divider orientation='vertical' borderWidth='2px' borderRadius='xl' borderColor='white'></Divider>
+                                <VStack justifyContent='center' alignItems='center' px='5' h='100%' cursor='pointer' onClick={logout}>
+                                    <MdLogout fontSize='25px' color='white' />
+                                </VStack>
+                            </HStack>
+                        ) 
+                    }
+                    </Box>
+                </HStack>
+                <Box w='100%' position='relative' zIndex='1000'>
+                    <Box position='absolute' top='0' left='0' w='100%' zIndex='1000'>
+                        <Collapse in={isOpen} animateOpacity onMouseLeave={onToggle}>
+                            <Box p='10' w='100%' color='white' bg='white' boxShadow='md'>
+                                {isOpen &&
+                                    <HStack w='100%' zIndex='1000'>
+                                        <motion.div
+                                            key={'photosLink'}
+                                            style={{width: '33%'}}
+                                            initial="initialState"
+                                            animate="animateState"
+                                            exit="exitState"
+                                            transition={{ duration: 0.6 }}
+                                            variants={{
+                                                initialState: {
+                                                    opacity: 0,
+                                                    x: '-30px'
+                                                },
+                                                animateState: {
+                                                    opacity: 1,
+                                                    x: '0px'
+                                                },
+                                                exitState: {
+                                                    opacity: 0, 
+                                                    x: '30px'
+                                                }
+                                            }}
+                                            >
+                                                <Link href="/photos">
+                                                    <Text color='black' fontWeight='bold' fontSize='xl' textAlign='center'>Photos</Text>
+                                                </Link>
+                                        </motion.div>
+                                        <motion.div
+                                            key={'expenseLink'}
+                                            style={{width: '33%'}}
+                                            initial="initialState"
+                                            animate="animateState"
+                                            exit="exitState"
+                                            transition={{ duration: 0.8 }}
+                                            variants={{
+                                                initialState: {
+                                                    opacity: 0,
+                                                    x: '-30px'
+                                                },
+                                                animateState: {
+                                                    opacity: 1,
+                                                    x: '0px'
+                                                },
+                                                exitState: {
+                                                    opacity: 0, 
+                                                    x: '30px'
+                                                }
+                                            }}
+                                            >
+                                                 <Link href="/expenses">
+                                                    <Text color='black' fontWeight='bold' fontSize='xl' textAlign='center'>Expenses</Text>
+                                                </Link>
+                                        </motion.div>
+                                        <motion.div
+                                            key={'mapLink'}
+                                            style={{width: '33%'}}
+                                            initial="initialState"
+                                            animate="animateState"
+                                            exit="exitState"
+                                            transition={{ duration: 1 }}
+                                            variants={{
+                                                initialState: {
+                                                    opacity: 0,
+                                                    x: '-30px'
+                                                },
+                                                animateState: {
+                                                    opacity: 1,
+                                                    x: '0px'
+                                                },
+                                                exitState: {
+                                                    opacity: 0, 
+                                                    x: '30px'
+                                                }
+                                            }}
+                                            >
+                                                 <Link href="/map">
+                                                    <Text color='black' fontWeight='bold' fontSize='xl' textAlign='center'>Map</Text>
+                                                </Link>
+                                        </motion.div>
+                                    </HStack>
+                                }
+                            </Box>
+                        </Collapse>
+                    </Box>
                 </Box>
-            </HStack>
+            </VStack>
         </Flex>
     )
 }
