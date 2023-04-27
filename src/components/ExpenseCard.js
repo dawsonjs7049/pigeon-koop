@@ -1,6 +1,5 @@
 import { Flex, Box, SlideFade, useDisclosure, Button } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { useState } from "react";
 import { BsTrash } from "react-icons/bs";
 
 export default function ExpenseCard({ expense, index, handleDelete, isAdmin }) {
@@ -11,26 +10,10 @@ export default function ExpenseCard({ expense, index, handleDelete, isAdmin }) {
         <motion.div
             key={expense.id}
             style={{width: '100%'}}
-            initial="initialState"
-            animate="animateState"
-            exit="exitState"
-            transition={{ duration: 0.6 }}
-            variants={{
-                initialState: {
-                    opacity: 0,
-                    y: '-20px'
-                },
-                animateState: {
-                    opacity: 1,
-                    y: '0px'
-                },
-                exitState: {
-                    opacity: 0, 
-                    y: '20px'
-                }
-            }}
+            layout
             >
             <Flex 
+                overflowY='hidden'
                 w='100%'
                 h='60px'
                 borderRadius='md' 

@@ -9,31 +9,15 @@ import { AiOutlinePlusCircle } from 'react-icons/ai';
 import ReactSelect from "react-select";
 import ExpenseCard from "@/components/ExpenseCard";
 import { AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function Expenses() {
-
-    const [user, loading] = useAuthState(auth);
-    const { isOpen, onOpen, onClose } = useDisclosure();
-
-    const toast = useToast();
-
-    const [allExpenses, setAllExpenses] = useState([]);
-    const [filteredExpenses, setFilteredExpenses] = useState([]);
-    const [runningTotal, setRunningTotal] = useState(0);
-    const [filteredTotal, setFilteredTotal] = useState(0);
-    const [type, setType] = useState('Deposit (+)');
-    const [amount, setAmount] = useState(0);
-    const [description, setDescription] = useState('');
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
-    const [isAdmin, setIsAdmin] = useState(true);
-
     const ONE_MONTH = 1;
     const SIX_MONTH = 6;
     const TWELVE_MONTH = 12;
     const ALL = -1;
     const CUSTOM = -2;
-
+  
     const types = [
         {
             label: 'Deposit (+)',
@@ -64,6 +48,23 @@ export default function Expenses() {
         }
     ];
 
+    const [user, loading] = useAuthState(auth);
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const toast = useToast();
+
+    const [allExpenses, setAllExpenses] = useState([]);
+    const [filteredExpenses, setFilteredExpenses] = useState([]);
+    const [runningTotal, setRunningTotal] = useState(0);
+    const [filteredTotal, setFilteredTotal] = useState(0);
+    const [type, setType] = useState('Deposit (+)');
+    const [amount, setAmount] = useState(0);
+    const [description, setDescription] = useState('');
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const [isAdmin, setIsAdmin] = useState(true);
+    const [filterTimeframe, setFilterTimeframe] = useState(filters[1]);
+
     useEffect(() => {
         if(user) 
         {
@@ -89,8 +90,8 @@ export default function Expenses() {
 
             setRunningTotal(runningTotal.toFixed(2));
             setAllExpenses(expenses);
-
-            handleSetFilteredExpenses(SIX_MONTH, expenses, null, null);
+            console.log("IN USE EFFECT, PASSING FILTER TIME OF: " + filterTimeframe.value);
+            handleSetFilteredExpenses(filterTimeframe.value, expenses, null, null);
         });
 
         return unsubscribe;
@@ -100,7 +101,7 @@ export default function Expenses() {
     const handleSetFilteredExpenses = (timeframe, startingArr, start, end) => {
         let filterArr = (startingArr !== null ? startingArr : allExpenses);
         let newArr = [];
-
+        console.log("TIMEFRAME: " + timeframe);
         const timestamp = getTimestamp(timeframe);
         switch(timeframe) {
             case ONE_MONTH:
@@ -137,9 +138,15 @@ export default function Expenses() {
         setFilteredExpenses(newArr);
     }
 
+    useEffect(() => {
+        console.log("CHANGING TIMEFRAME: " + filterTimeframe.value);
+    }, [filterTimeframe])
+
     const handleFilterChange = (item) => {
         handleSetFilteredExpenses(item.value, null, null, null);
 
+        console.log("SETTING FILTER: " + item.value);
+        setFilterTimeframe(item);
         setStartDate('');
         setEndDate('');
     }
@@ -209,7 +216,7 @@ export default function Expenses() {
     }
 
     return (
-        <Flex justifyContent='center'>
+        <Flex justifyContent='center' h='100%'>
             <VStack w='100%' maxW="1300px" p='5'>
                 <Box mt='16' w='100%'>
                     <HStack w='100%'>
@@ -238,6 +245,7 @@ export default function Expenses() {
                         <VStack>
                             <Text fontWeight='bold'>Filter</Text>
                             <ReactSelect
+                                value={filterTimeframe}
                                 defaultValue={{ label: "6 Months", value: SIX_MONTH }}
                                 onChange={(item) => handleFilterChange(item)}
                                 options={filters}
@@ -254,15 +262,15 @@ export default function Expenses() {
                         </VStack>
                     </HStack>
                 </Flex>
-                <VStack w='100%' maxH='1200px' overflowY='auto' pt='5'>
-                    <AnimatePresence mode='sync'>
+                <VStack w='100%' h='100%' overflowY='auto' pt='5'>
+                    <motion.div layout style={{ width: '100%', height: 'fit-content' }}>
                         {filteredExpenses && filteredExpenses.length > 0 && 
-                            filteredExpenses.map((expense, index) => {
-                                return <ExpenseCard key={expense.id} expense={expense} index={index} handleDelete={handleDelete} isAdmin={isAdmin} />
-                            })
+                                filteredExpenses.map((expense, index) => {
+                                    return <ExpenseCard key={expense.id} expense={expense} index={index} handleDelete={handleDelete} isAdmin={isAdmin} />
+                                })
                         }
-                    </AnimatePresence>
-                </VStack>
+                    </motion.div>
+                </VStack>               
             </VStack>
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px) hue-rotate(90deg)' />
