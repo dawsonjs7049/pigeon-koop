@@ -2,3 +2,5 @@
 - Style header 
 - Page transitions
 - Fancy filtering animations
+- Wrap expense card in a container so we can separate the firebase logic state from the filter. (pass the filter options into the
+  inner component so that when we add/delete it doesn't reset filter state)

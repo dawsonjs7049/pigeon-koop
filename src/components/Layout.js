@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Nav from './Nav';
 import Head from 'next/head';
-import { Box, HStack, Text, useColorMode, useColorModeValue } from '@chakra-ui/react';
+import { Box, Flex, HStack, Text, useColorMode, useColorModeValue } from '@chakra-ui/react';
 
 export default function Layout({ children })
 {
@@ -18,17 +18,15 @@ export default function Layout({ children })
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div>
-                <div style={{height: '100vh', width: '100vw', overflowX: 'hidden', paddingBottom: '40px'}}>
-                    <Nav toggleColor={toggleColorMode} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
-                    <Box bg={bgColor}>
-                        { children }
-                    </Box>
-                    <HStack h='40px' bg='gray.700' w='100%' justifyContent='center' alignItems='center' position='absolute' bottom='0'>
-                        <Text color='white' fontWeight='bold'>Notice a problem? Deal with it</Text>
-                    </HStack>
-                </div>
-            </div> 
+            <Flex flexDir='column' bg={bgColor} h='100vh' alignItems='stretch' w='100vw' overflowX='hidden' pb='40px'>
+                <Nav toggleColor={toggleColorMode} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+                <Box h='100%'>
+                    { children }
+                </Box>
+                <HStack h='40px' bg='gray.700' w='100%' justifyContent='center' alignItems='center' position='absolute' bottom='0' zIndex='1000'>
+                    <Text color='white' fontWeight='bold'>Notice a problem? Deal with it</Text>
+                </HStack>
+            </Flex>
         </>
        
     )
