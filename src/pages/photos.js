@@ -114,7 +114,7 @@ export default function Photos() {
                     items={images.map((imageObj) => { 
                         return { original: imageObj.url, thumbnail: imageObj.url, thumbnailHeight: '200px', thumbnailWidth: '200px' }
                     })}
-                    onSlide={(index) => setCurrentGalleryImage(images[index])}
+                    onBeforeSlide={(index) => setCurrentGalleryImage(images[index])}
                 />
             </Box>
             { currentGalleryImage &&

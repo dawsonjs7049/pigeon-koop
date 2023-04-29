@@ -49,24 +49,7 @@ export default function CommentCard({ comment, user }) {
         <motion.div
             key={comment.id}
             style={{width: '30%', marginBottom: '2rem', minWidth: '300px'}}
-            initial="initialState"
-            animate="animateState"
-            exit="exitState"
-            transition={{ duration: 0.6 }}
-            variants={{
-                initialState: {
-                    opacity: 0,
-                    y: '-20px'
-                },
-                animateState: {
-                    opacity: 1,
-                    y: '0px'
-                },
-                exitState: {
-                    opacity: 0, 
-                    y: '20px'
-                }
-            }}
+            layout
         >
             <Card h='300px' _hover={{ boxShadow: '0px 10px 34px -3px rgba(0,0,0,0.54)' }} transition='all .5s ease-in-out'>
                 <CardBody>

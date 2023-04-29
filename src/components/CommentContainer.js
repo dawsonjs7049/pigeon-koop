@@ -68,7 +68,7 @@ export default function CommentContainer({ photoId, user }) {
                     Add Comment
                 </Button>
             </HStack>
-            <AnimatePresence mode='sync'>
+            <motion.div style={{ width: '100%', height: '100%' }} layout>
                 <Flex justify='space-evenly' wrap='wrap'>
                     {comments && comments.length > 0 ? 
                         (
@@ -104,7 +104,7 @@ export default function CommentContainer({ photoId, user }) {
                         )
                     }
                 </Flex>
-            </AnimatePresence>
+            </motion.div>
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px) hue-rotate(90deg)' />
                 <ModalContent h='fit-content'>
