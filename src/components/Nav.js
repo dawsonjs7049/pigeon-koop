@@ -24,8 +24,8 @@ export default function Nav({ toggleColor, isDarkMode, setIsDarkMode })
     }
 
     return (
-        <Flex justifyContent='center'>
-            <VStack w='100%' maxW='1300px' bg='blue.500'>
+        <Flex justifyContent='center' bg='blue.600'>
+            <VStack w='100%' maxW='1300px'>
                 <HStack px="4" pt='2' w='100%'>
                     <Link href={"/dashboard"}>
                         <Text fontSize='2xl' fontWeight='bold' color='white'>Pigeon Koop</Text>

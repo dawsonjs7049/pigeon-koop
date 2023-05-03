@@ -1,3 +1,4 @@
+import { Box } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 
 export default function WeatherWidget() {
@@ -13,15 +14,15 @@ export default function WeatherWidget() {
   }, []);
 
   return (
-    <a
-      className="weatherwidget-io"
-      href="https://forecast7.com/en/45d88n92d37/webster/?unit=us"
-      data-label_1="WEBSTER"
-      data-label_2="WEATHER"
-      data-theme="original"
-      style={{ minHeight: '40px' }}
-    >
-      WEBSTER WEATHER
-    </a>
+      <a
+        style={{ minHeight: '40px', height: '40px' }}
+        className="weatherwidget-io"
+        href="https://forecast7.com/en/45d88n92d37/webster/?unit=us"
+        data-label_1="WEBSTER"
+        data-label_2="WEATHER"
+        data-theme="original"
+      >
+        WEBSTER WEATHER
+      </a>
   );
 };
