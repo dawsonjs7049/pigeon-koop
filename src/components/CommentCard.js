@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardBody, CardFooter, Text, VStack, Box, HStack, Button, useToast } from '@chakra-ui/react'
+import { Card, CardHeader, CardBody, CardFooter, Text, VStack, Box, HStack, Button, useToast, SlideFade, useDisclosure } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import { FiThumbsUp } from 'react-icons/fi'
 import { BsTrash } from 'react-icons/bs';
@@ -8,6 +8,7 @@ import { useState } from 'react';
 
 export default function CommentCard({ comment, user }) {
 
+    const { isOpen, onToggle } = useDisclosure();
     const [isLiked, setIsLiked] = useState(comment.likes ? comment.likes.includes(user.email) : false);
 
     const toast = useToast();
@@ -51,16 +52,18 @@ export default function CommentCard({ comment, user }) {
             style={{width: '30%', marginBottom: '2rem', minWidth: '300px'}}
             layout
         >
-            <Card h='300px' _hover={{ boxShadow: '0px 10px 34px -3px rgba(0,0,0,0.54)' }} transition='all .5s ease-in-out'>
+            <Card h='300px' _hover={{ boxShadow: '0px 10px 34px -3px rgba(0,0,0,0.54)' }} transition='all .5s ease-in-out' onMouseEnter={onToggle} onMouseLeave={onToggle}>
                 <CardBody>
                     <VStack justify='space-between' w='100%' h='100%'>
                         <Box w='100%' h='75%'>
                             <HStack h='20%' justify='space-between' alignItems='center'>
                                 <Text fontSize='xl' fontWeight='bold'>{comment.author}</Text>
                                 {comment.author === user.email &&
-                                    <Button onClick={handleDelete} colorScheme='red' p='0'>
-                                        <BsTrash fontSize='20px' />
-                                    </Button>
+                                    <SlideFade in={isOpen} offsetX='20px'>
+                                        <Button onClick={handleDelete} colorScheme='red' p='0'>
+                                            <BsTrash fontSize='20px' />
+                                        </Button>
+                                    </SlideFade>
                                 }
                             </HStack>
                             <Text h='75%' my='5' borderRadius='5px' backgroundColor='ghostwhite' p='5'>{comment.comment}</Text>

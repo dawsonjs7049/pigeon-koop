@@ -56,8 +56,6 @@ export default function Dashboard() {
                 setEvents(events);
             });
 
-
-
             return unsubscribe;
         }
     }, [user, loading]);
@@ -67,20 +65,19 @@ export default function Dashboard() {
             <WeatherWidget/>
             <Flex justifyContent='center'>
                 <VStack w='100%' maxW="1300px" p='5' height='max'>
-                   
-                        <HStack w='100%' my='10'>
-                            <Box w='50%'>
-                                <SlideFade in={true} offsetX='20px' delay='2000s'>
-                                    <Text fontWeight='bold' fontSize='2xl' mb='5'>Welcome {name}</Text>
-                                    <Text fontWeight='bold' fontSize='xl'>You have {reservationsInMonth.length} reservations this month!</Text>
-                                </SlideFade>
-                            </Box>
-                            <Box w='50%'>
-                                <SlideFade in={true} offsetX='20px'>
-                                    <TodoList user={user} />
-                                </SlideFade>
-                            </Box>
-                        </HStack>
+                    <Flex flexDir='row' flexWrap='wrap' w='100%' my='10' alignItems='flex-start'>
+                        <Box w='50%' minWidth='400px'>
+                            <SlideFade in={true} offsetX='20px' delay='2000s'>
+                                <Text fontWeight='bold' fontSize='2xl' mb='5'>Welcome {name}</Text>
+                                <Text fontWeight='bold' fontSize='xl'>You have {reservationsInMonth.length} reservations this month!</Text>
+                            </SlideFade>
+                        </Box>
+                        <Box w='50%'>
+                            <SlideFade in={true} offsetX='20px'>
+                                <TodoList user={user} />
+                            </SlideFade>
+                        </Box>
+                    </Flex>
                     <Calendar events={events} user={user} db={db} name={name} />
                 </VStack>
             </Flex>

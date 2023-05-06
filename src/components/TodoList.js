@@ -1,17 +1,19 @@
 import TodoCard from "./TodoCard"
 import { db } from "@/utils/firebase"
-import { Box, Button, HStack, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, SlideFade, Text, useDisclosure, useToast, VStack } from "@chakra-ui/react"
-import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp } from "firebase/firestore"
+import { Box, Button, Collapse, HStack, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, SlideFade, Text, useDisclosure, useToast, VStack } from "@chakra-ui/react"
+import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, serverTimestamp } from "firebase/firestore"
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion";
 import { formatDate } from "@/utils/utilities";
 import Todo from "@/models/Todo"
+import { AiOutlinePlusCircle } from "react-icons/ai"
 
 export default function TodoList({ user }) {
 
     const [todos, setTodos] = useState([]);
     const [todoDescription, setTodoDescription] = useState('');
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const { isOpen: collapseIsOpen, onToggle: onCollapseToggle } = useDisclosure();
 
     const toast = useToast();
 
@@ -55,29 +57,43 @@ export default function TodoList({ user }) {
         });
     }
 
-    const handleDelete = () => {
+    const handleDelete = async (todoId) => {
+        const docRef = doc(db, 'todos', todoId);
 
+        await deleteDoc(docRef);
+
+        toast({
+            title: 'Success',
+            description: 'Todo Successfully Deleted',
+            status: 'success',
+            duration: 5000,
+            isClosable: true,
+        });
     }
 
     return (
         <>
-            <Box rounded='md' shadow='md' p='3'>
-                <HStack>
-                    <Text>To-Do</Text>
-                    <Button onClick={onOpen}>Add</Button>
+            <Box rounded='md' shadow='md' p='3' onMouseEnter={onCollapseToggle} onMouseLeave={onCollapseToggle}>
+                <HStack justifyContent='space-between' p='3'>
+                    <Text fontWeight='bold' fontSize='xl'>Todo List - {todos.length}</Text>
+                    <Button bg='blue.400' color='white' onClick={onOpen} borderRadius='full' >
+                        <AiOutlinePlusCircle fontSize='25px' />
+                    </Button>
                 </HStack>
-                <VStack p='3'>
-                    <motion.div layout style={{ width: '100%', height: 'fit-content' }}>
-                        {todos.length > 0 ? (
-                                todos.map((todo, index) => {
-                                    return <TodoCard todo={todo} handleDelete={handleDelete} index={index} key={todo.id}/>
-                                })
-                            ) : (
-                                <Text>No todos right now...</Text>
-                            )
-                        }
-                    </motion.div>
-                </VStack>
+                <Collapse in={collapseIsOpen} animateOpacity>
+                    <VStack p='3' maxH='300px' overflowY='auto'>
+                        <motion.div layout style={{ width: '100%', height: 'fit-content' }}>
+                            {todos.length > 0 ? (
+                                    todos.map((todo, index) => {
+                                        return <TodoCard todo={todo} handleDelete={handleDelete} index={index} key={todo.id}/>
+                                    })
+                                ) : (
+                                    <Text>No todos right now...</Text>
+                                )
+                            }
+                        </motion.div>
+                    </VStack>
+                </Collapse>
             </Box>
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px) hue-rotate(90deg)' />

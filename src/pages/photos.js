@@ -1,14 +1,15 @@
 import Photo from "@/models/Photo";
 import { auth, db, storage } from "@/utils/firebase";
 import { Box, Button, HStack, Input, Spacer, Text, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Textarea, Toast, useToast, Spinner } from "@chakra-ui/react";
-import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, serverTimestamp } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import styles from '@/styles/Photos.module.css'
 import ReactImageGallery from "react-image-gallery";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { formatDate } from "@/utils/utilities";
 import CommentContainer from "@/components/CommentContainer";
+import { BsTrash } from "react-icons/bs";
 
 export default function Photos() {
 
@@ -101,15 +102,40 @@ export default function Photos() {
         });
     }
 
+    const handleDelete = async () => {
+        const imageStorageRef = ref(storage, currentGalleryImage.filename);
+
+        deleteObject(imageStorageRef).then(async () => {
+            const imageRef = doc(db, 'images', currentGalleryImage.id);
+
+            await deleteDoc(imageRef);
+    
+            toast({
+                title: 'Success',
+                description: 'Your Photo was Successfully Deleted',
+                duration: 5000,
+                isClosable: true,
+            });
+        }).catch((error) => {
+            console.log(error);
+            toast({
+                title: 'Failure',
+                description: 'Your Photo was Unable to be Deleted',
+                duration: 5000,
+                isClosable: true,
+            });
+        });       
+    }
+
     return (
         <Box style={styles} maxW='1300px' margin='auto' w='100%' p='5'>
-            <HStack>
-                <Text fontSize="2xl" mb="10">Photo Gallery</Text>
+            <HStack my='5'>
+                <Text fontSize="2xl">Photo Gallery</Text>
                 <Spacer />
                 <Button onClick={uploadOnOpen}>Upload Picture</Button>
             </HStack>
             
-            <Box borderRadius='5px' boxShadow='md' p='5'>
+            <Box borderRadius='5px' boxShadow='md' p='5' minH='60vh'>
                 <ReactImageGallery 
                     items={images.map((imageObj) => { 
                         return { original: imageObj.url, thumbnail: imageObj.url, thumbnailHeight: '200px', thumbnailWidth: '200px' }
@@ -118,7 +144,29 @@ export default function Photos() {
                 />
             </Box>
             { currentGalleryImage &&
+                <>
+                    <Box w='100%' rounded='md' shadow='md' p='5' mt='2'>
+                        {currentGalleryImage.comment !== '' &&
+                            <Box>
+                                <Text>{currentGalleryImage.comment}</Text>
+                            </Box>
+                        }
+                        <HStack justifyContent='space-between'>
+                            <Box>
+                                <Text fontSize='sm'>Posted by {currentGalleryImage.owner} on {currentGalleryImage.date}</Text>
+                            </Box>
+                            {currentGalleryImage.owner === user.email &&
+                                <Box>
+                                    <Button onClick={handleDelete} colorScheme='red' p='0'>
+                                        <BsTrash fontSize='20px' />
+                                    </Button>
+                                </Box>
+                            }
+                        </HStack>
+                    </Box>
+                    
                     <CommentContainer photoId={currentGalleryImage.id} user={user} />
+                </>
             }
 
             <Modal isOpen={uploadIsOpen} onClose={uploadOnClose}>

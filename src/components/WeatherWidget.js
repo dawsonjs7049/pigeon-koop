@@ -14,15 +14,16 @@ export default function WeatherWidget() {
   }, []);
 
   return (
+    <Box style={{ minHeight: '98px !important', height: '98px'}} bg='blue.800'>
       <a
-        style={{ minHeight: '40px', height: '40px' }}
+        style={{ height: '100%' }}
         className="weatherwidget-io"
         href="https://forecast7.com/en/45d88n92d37/webster/?unit=us"
         data-label_1="WEBSTER"
         data-label_2="WEATHER"
         data-theme="original"
       >
-        WEBSTER WEATHER
       </a>
+    </Box>
   );
 };
