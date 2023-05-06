@@ -138,10 +138,6 @@ export default function Expenses() {
         setFilteredExpenses(newArr);
     }
 
-    useEffect(() => {
-        console.log("CHANGING TIMEFRAME: " + filterTimeframe.value);
-    }, [filterTimeframe])
-
     const handleFilterChange = (item) => {
         handleSetFilteredExpenses(item.value, null, null, null);
 
