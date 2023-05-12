@@ -9,7 +9,8 @@
 section{
   position: relative;
   width: 100%;
-  height: calc(100vh - 57px);
+  /* height: calc(100vh - 57px); */
+  height: 96vh;
   background: #3586ff;
   overflow: hidden;
 }

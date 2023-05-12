@@ -66,7 +66,7 @@ export default function CommentCard({ comment, user }) {
                                     </SlideFade>
                                 }
                             </HStack>
-                            <Text h='75%' my='5' borderRadius='5px' backgroundColor='ghostwhite' p='5'>{comment.comment}</Text>
+                            <Text h='75%' my='5' borderRadius='5px' backgroundColor='ghostwhite' color='black' p='5'>{comment.comment}</Text>
                         </Box>
                         <HStack w='100%' justify='space-between'>
                             <Text>Posted: {comment.date}</Text>

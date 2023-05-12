@@ -1,22 +1,50 @@
-import { Box, Button, Flex, HStack, SlideFade, Text, useDisclosure, VStack } from "@chakra-ui/react";
+import { Box, Button, Flex, HStack, SlideFade, Text, useColorMode, useDisclosure, VStack } from "@chakra-ui/react";
 import { BsTrash } from "react-icons/bs";
 import { motion } from "framer-motion";
+import { useContext, useEffect, useMemo } from "react";
+import { DarkModeContext } from "./Layout";
 
 export default function TodoCard({ todo, index, handleDelete }) {
     
     const { isOpen, onToggle } = useDisclosure();
+    const isDarkMode = useContext(DarkModeContext);
+
+    let bg = 'white';
+    let color = 'black';
+
+    if(isDarkMode)
+    {
+        if(index % 2 == 0)
+        {
+            bg = 'gray.500';
+        } 
+        else 
+        {
+            bg = 'gray.600';
+        }
+
+        color = 'white';
+    }
+    else 
+    {
+        if(index % 2 != 0)
+        {
+            bg = 'ghostwhite';
+        }
+    }
 
     return (
         <motion.div
             key={todo.id}
-            style={{width: '100%'}}
+            style={{width: '100%', marginTop: '10px'}}
             layout
             >
             <HStack
                 w='100%'
                 p='3'
                 rounded='md'
-                bg={index % 2 == 0 ? 'white' : 'ghostwhite'} 
+                bg={bg} 
+                color={color}
                 onMouseEnter={onToggle} 
                 onMouseLeave={onToggle}
                 >

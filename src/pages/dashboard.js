@@ -1,6 +1,6 @@
 import Calendar from "@/components/Calender";
 import { auth, db } from "@/utils/firebase";
-import { collection, doc, onSnapshot, orderBy, query, Timestamp, where } from 'firebase/firestore';
+import { collection, onSnapshot, orderBy, query, Timestamp } from 'firebase/firestore';
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -44,7 +44,7 @@ export default function Dashboard() {
                 
                 const myReservationsInMonth = [];
                 events.forEach(event => {
-                    if(event.user === user.email) {
+                    if(event.timestamp && event.user === user.email) {
                         const timestamp = new Timestamp(event.timestamp.seconds, event.timestamp.nanoseconds).toDate();
                         if(timestamp >= firstOfMonth) {
                             myReservationsInMonth.push(event);

@@ -183,7 +183,7 @@ export default function Calendar({ events, user, db, name }) {
                     <ModalCloseButton />
                     <ModalBody>
                         <Text fontSize='xl' fontWeight='bold' textAlign='center'>Booking: {dateString}</Text>
-                        <Box borderRadius='10px' mt='10' p='5' backgroundColor='ghostwhite'>
+                        <Box color='black' borderRadius='10px' mt='10' p='5' backgroundColor='ghostwhite'>
                             <Text fontSize='xl' textAlign='center'>Expected People: {numPeople}</Text>
                             <Slider mt='5' defaultValue={1} min={0} max={10} step={1} onChangeEnd={(val) => setNumPeople(val)}>
                                 <SliderTrack bg='red.100'>
@@ -211,7 +211,7 @@ export default function Calendar({ events, user, db, name }) {
                     <ModalCloseButton />
                     <ModalBody>
                         <Text fontSize='xl' fontWeight='bold' textAlign='center'>Booking: {dateString}</Text>
-                        <Box borderRadius='10px' mt='10' p='5' backgroundColor='ghostwhite'>
+                        <Box color='black' borderRadius='10px' mt='10' p='5' backgroundColor='ghostwhite'>
                             <Text fontSize='xl' textAlign='center'>Update - People: {numPeople}</Text>
                             <Slider mt="5" defaultValue={numPeople} min={0} max={10} step={1} onChangeEnd={(val) => setNumPeople(val)}>
                                 <SliderTrack bg='red.100'>

@@ -7,6 +7,7 @@ import { Button, Text, Box, HStack, Spacer, Flex, VStack, Collapse, useDisclosur
 import { AnimatePresence, motion } from 'framer-motion';
 import { MdLogout } from 'react-icons/md';
 import { HiOutlineSun } from 'react-icons/hi';
+import { useEffect } from 'react';
 
 export default function Nav({ toggleColor, isDarkMode, setIsDarkMode })
 {
@@ -15,7 +16,7 @@ export default function Nav({ toggleColor, isDarkMode, setIsDarkMode })
     const { isOpen, onToggle } = useDisclosure();
 
     const route = useRouter();
-
+    
     function logout()
     {
         auth.signOut()
@@ -36,6 +37,10 @@ export default function Nav({ toggleColor, isDarkMode, setIsDarkMode })
                         user &&
                         (
                             <HStack h='60px' alignItems='center'>
+                                <VStack justifyContent='center' alignItems='center' px='5' h='100%' onMouseEnter={onToggle}>
+                                    <BsArrowDown fontSize='25px' color='white'></BsArrowDown>
+                                </VStack>
+                                <Divider orientation='vertical' borderWidth='2px' borderRadius='xl' borderColor='white'></Divider>
                                 <VStack justifyContent='center' alignItems='center' px='5' h='100%'>
                                     { isDarkMode ? (
                                         <HiOutlineSun
@@ -43,7 +48,7 @@ export default function Nav({ toggleColor, isDarkMode, setIsDarkMode })
                                             color='white' 
                                             onClick={() => {
                                                 toggleColor();
-                                                setIsDarkMode(!isDarkMode);
+                                                setIsDarkMode(false);
                                             }}
                                             cursor='pointer'/>
                                     ) : (
@@ -52,14 +57,10 @@ export default function Nav({ toggleColor, isDarkMode, setIsDarkMode })
                                             color='white' 
                                             onClick={() => {
                                                 toggleColor();
-                                                setIsDarkMode(!isDarkMode);
+                                                setIsDarkMode(true);
                                             }}
                                             cursor='pointer'/>
                                     )}
-                                </VStack>
-                                <Divider orientation='vertical' borderWidth='2px' borderRadius='xl' borderColor='white'></Divider>
-                                <VStack justifyContent='center' alignItems='center' px='5' h='100%' onMouseEnter={onToggle}>
-                                    <BsArrowDown fontSize='25px' color='white'></BsArrowDown>
                                 </VStack>
                                 <Divider orientation='vertical' borderWidth='2px' borderRadius='xl' borderColor='white'></Divider>
                                 <VStack justifyContent='center' alignItems='center' px='5' h='100%' cursor='pointer' onClick={logout}>

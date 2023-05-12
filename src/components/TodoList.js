@@ -27,9 +27,6 @@ export default function TodoList({ user }) {
                 return new Todo({ ...doc.data(), id: doc.id });
             });
 
-            console.log("TODOS");
-            console.log(myTodos);
-
             setTodos(myTodos);
         });
 
@@ -76,7 +73,7 @@ export default function TodoList({ user }) {
             <Box rounded='md' shadow='md' p='3' onMouseEnter={onCollapseToggle} onMouseLeave={onCollapseToggle}>
                 <HStack justifyContent='space-between' p='3'>
                     <Text fontWeight='bold' fontSize='xl'>Todo List - {todos.length}</Text>
-                    <Button bg='blue.400' color='white' onClick={onOpen} borderRadius='full' >
+                    <Button bg='blue.500' color='white' onClick={onOpen} borderRadius='full' >
                         <AiOutlinePlusCircle fontSize='25px' />
                     </Button>
                 </HStack>

@@ -40,7 +40,7 @@ export default function Home() {
 
   return (
       <section>
-        <Flex h="100%" justify={'center'} align='center'>
+        <Flex h="100%" justify={'center'} align='center' overflowY='hidden'>
           <Card size={'lg'} shadow="lg">
             <CardHeader>
               <Heading size='lg' textAlign={'center'}>The Pigeon Koop</Heading>

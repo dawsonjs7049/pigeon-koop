@@ -14,7 +14,7 @@ export default function WeatherWidget() {
   }, []);
 
   return (
-    <Box style={{ minHeight: '98px !important', height: '98px'}} bg='blue.800'>
+    <Box style={{ minHeight: '98px !important' }} bg='blue.800'>
       <a
         style={{ height: '100%' }}
         className="weatherwidget-io"

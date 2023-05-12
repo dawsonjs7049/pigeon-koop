@@ -214,19 +214,19 @@ export default function Expenses() {
     return (
         <Flex justifyContent='center' h='100%'>
             <VStack w='100%' maxW="1300px" p='5'>
-                <Box mt='16' w='100%'>
+                <Box mt='5' w='100%'>
                     <HStack w='100%'>
                         <Text fontSize="2xl" fontWeight="bold" textAlign='start'>Expense Tracking</Text>
                         <Spacer/>
                         {
                             isAdmin &&
-                                <Button bg='teal.400' color='white' onClick={onOpen} borderRadius='full' >
+                                <Button bg='blue.500' color='white' onClick={onOpen} borderRadius='full' >
                                     <AiOutlinePlusCircle fontSize='25px' />
                                 </Button>
                         }
                     </HStack>
                 </Box>
-                <Flex mt='5' p='8' w='100%' borderRadius='md' shadow='md' bg='ghostwhite' justify='space-between' alignItems='center'>
+                <Flex color='black' mt='5' p='8' w='100%' borderRadius='md' shadow='md' bg='ghostwhite' justify='space-between' alignItems='center'>
                     <HStack>
                         <VStack mr='5'>
                             <Text fontWeight='bold'>Running Total</Text>
@@ -258,8 +258,8 @@ export default function Expenses() {
                         </VStack>
                     </HStack>
                 </Flex>
-                <VStack w='100%' h='100%' overflowY='auto' pt='5'>
-                    <motion.div layout style={{ width: '100%', height: 'fit-content' }}>
+                <VStack color='black' w='100%' h='95%' overflowY='auto' pt='5'>
+                    <motion.div layout style={{ width: '100%', height: '100%' }}>
                         {filteredExpenses && filteredExpenses.length > 0 && 
                                 filteredExpenses.map((expense, index) => {
                                     return <ExpenseCard key={expense.id} expense={expense} index={index} handleDelete={handleDelete} isAdmin={isAdmin} />
