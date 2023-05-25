@@ -1,3 +1,5 @@
+'use client';
+
 import Calendar from "@/components/Calender";
 import { auth, db } from "@/utils/firebase";
 import { collection, onSnapshot, orderBy, query, Timestamp } from 'firebase/firestore';
