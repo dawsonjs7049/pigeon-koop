@@ -1,4 +1,3 @@
-import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
@@ -6,6 +5,7 @@ import { useRef, useState } from 'react';
 import { getDateRange, formatDate } from '@/utils/utilities';
 import { Box, Slider, SliderTrack, SliderFilledTrack, SliderThumb, ModalOverlay, Modal, Text, Button, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useDisclosure, HStack, useToast } from '@chakra-ui/react';
 import { addDoc, collection, deleteDoc, doc, serverTimestamp, Timestamp, updateDoc } from 'firebase/firestore';
+import FullCalendar from '@fullcalendar/react';
 
 export default function Calendar({ events, user, db, name }) {
 
