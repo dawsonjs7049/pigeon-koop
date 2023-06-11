@@ -169,7 +169,7 @@ export default function Calendar({ events, user, db, name }) {
                 <FullCalendar
                     plugins={[ dayGridPlugin, interactionPlugin, googleCalendarPlugin ]}
                     ref={calendarRef}
-                    defaultView="dayGridMonth" 
+                    initialView="dayGridMonth" 
                     selectable={true}
                     googleCalendarApiKey="AIzaSyATsMPLPyPHnbg-gmZqtQPT1a_sdZk-aE8"
                     select={onSelect}
