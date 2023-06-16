@@ -10,10 +10,9 @@ import Event from "@/models/Event";
 import { Box, Flex, HStack, SlideFade, Text, VStack } from "@chakra-ui/react";
 import WeatherWidget from "@/components/WeatherWidget";
 import TodoList from "@/components/TodoList";
-
+import { useCallback } from "react";
 
 export default function Dashboard() {
-
     const [events, setEvents] = useState();
     const [user, loading] = useAuthState(auth);
     const [name, setName] = useState('');

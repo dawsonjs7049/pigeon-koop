@@ -17,15 +17,13 @@ export default function Nav({ toggleColor, isDarkMode, setIsDarkMode })
 
     const route = useRouter();
     
-    function logout()
-    {
+    function logout() {
         auth.signOut()
-
         route.push('/');
     }
 
     return (
-        <Flex justifyContent='center' bg='blue.600'>
+        <Flex justifyContent='center' bg='blue.600' h='76px'>
             <VStack w='100%' maxW='1300px'>
                 <HStack px="4" pt='2' w='100%'>
                     <Link href={"/dashboard"}>
@@ -43,23 +41,27 @@ export default function Nav({ toggleColor, isDarkMode, setIsDarkMode })
                                 <Divider orientation='vertical' borderWidth='2px' borderRadius='xl' borderColor='white'></Divider>
                                 <VStack justifyContent='center' alignItems='center' px='5' h='100%'>
                                     { isDarkMode ? (
-                                        <HiOutlineSun
-                                            fontSize='25px' 
-                                            color='white' 
-                                            onClick={() => {
-                                                toggleColor();
-                                                setIsDarkMode(false);
-                                            }}
-                                            cursor='pointer'/>
+                                        <Box width='25px'>
+                                            <HiOutlineSun
+                                                fontSize='25px' 
+                                                color='white' 
+                                                onClick={() => {
+                                                    toggleColor();
+                                                    setIsDarkMode(false);
+                                                }}
+                                            cursor='pointer'/>      
+                                        </Box>
                                     ) : (
-                                        <BsFillMoonStarsFill 
-                                            fontSize='20px' 
-                                            color='white' 
-                                            onClick={() => {
-                                                toggleColor();
-                                                setIsDarkMode(true);
-                                            }}
-                                            cursor='pointer'/>
+                                        <Box width='25px'>
+                                            <BsFillMoonStarsFill 
+                                                fontSize='20px' 
+                                                color='white' 
+                                                onClick={() => {
+                                                    toggleColor();
+                                                    setIsDarkMode(true);
+                                                }}
+                                                cursor='pointer'/>
+                                        </Box>
                                     )}
                                 </VStack>
                                 <Divider orientation='vertical' borderWidth='2px' borderRadius='xl' borderColor='white'></Divider>
@@ -74,7 +76,7 @@ export default function Nav({ toggleColor, isDarkMode, setIsDarkMode })
                 <Box w='100%' position='relative' zIndex='1000'>
                     <Box position='absolute' top='0' left='0' w='100%' zIndex='1000'>
                         <Collapse in={isOpen} animateOpacity onMouseLeave={onToggle}>
-                            <Box p='10' w='100%' color='white' bg='white' boxShadow='md'>
+                            <Box p='10' w='100%' color='white' bg='ghostwhite' boxShadow='md'>
                                 {isOpen &&
                                     <HStack w='100%' zIndex='1000'>
                                         <motion.div

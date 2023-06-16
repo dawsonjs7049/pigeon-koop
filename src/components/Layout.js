@@ -28,7 +28,9 @@ export default function Layout({ children })
             </Head>
             <Flex flexDir='column' bg={bgColor} h='100vh' justifyContent='space-between' w='100vw' overflowX='hidden'>
                 <Box>
-                    <Nav toggleColor={toggleColorMode} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+                    {router.route !== '/' && 
+                        <Nav toggleColor={toggleColorMode} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+                    }
                     <DarkModeContext.Provider value={isDarkMode}>
                         <Box>
                             { children }

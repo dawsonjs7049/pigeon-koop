@@ -3,11 +3,12 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import { Card, Flex, Text, CardHeader, Heading, CardBody, VStack, Input, CardFooter, Button, Box } from '@chakra-ui/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '@/utils/firebase'
 import { useRouter } from 'next/router'
 import { useToast } from '@chakra-ui/react'
+import { useAuthState } from 'react-firebase-hooks/auth'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,6 +19,16 @@ export default function Home() {
 
   const router = useRouter();
   const toast = useToast();
+
+  const [user, loading] = useAuthState(auth);
+
+  useEffect(() => {
+    if(loading) return;
+
+    if (user) {
+      router.push('/dashboard');
+    } 
+  }, [loading, user]);
 
   const handleLogin = async () => {
     try 
@@ -39,7 +50,7 @@ export default function Home() {
   };
 
   return (
-      <section>
+      <section style={{overflowY: 'hidden'}}>
         <Flex h="100%" justify={'center'} align='center' overflowY='hidden'>
           <Card size={'lg'} shadow="lg">
             <CardHeader>
