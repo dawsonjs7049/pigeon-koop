@@ -1,7 +1,6 @@
 import nodemailer from "nodemailer";
 
-// const allEmails = ['jake906@charter.net', 'kaydee906@gmail.com'];
-const allEmails = ['dawson9060@gmail.com', 'jake906@charter.net'];
+const allEmails = ['jake906@charter.net', 'dawson9060@gmail.com', 'kaydee906@gmail.com'];
 
 const handler = async (req, res) => {
     if (req.method === 'POST') {

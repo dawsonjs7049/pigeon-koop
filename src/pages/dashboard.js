@@ -62,14 +62,9 @@ export default function Dashboard() {
         }
     }, [user, loading]);
 
-    const email = async () => {
-        await sendEmail({ from: 'thechuck11@gmail.com', date: '12/01/2023 - 12/03/2023', people: '3', user: 'denny' });
-    }
-
     return (
         <Box overflowX='hidden' height='max'>
             <WeatherWidget/>
-            <Button onClick={() => email()}>Testing</Button>
             <Flex justifyContent='center'>
                 <VStack w='100%' maxW="1300px" p='5' height='max'>
                     <Flex flexDir='row' flexWrap='wrap' w='100%' my='10' alignItems='flex-start'>

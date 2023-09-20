@@ -106,25 +106,25 @@ export default function Calendar({ events, user, db, name }) {
             
             dateArray.push(("0" + (date.getUTCMonth()+1)).slice(-2) + "-" + ("0" + date.getUTCDate()).slice(-2) + "-" + date.getUTCFullYear());
 
-            // await addDoc(collectionRef, {
-            //     title: name + " - " + numPeople,
-            //     people: numPeople,
-            //     niceDate: dateString,
-            //     date: calendarDate,
-            //     fullDate: newDate,
-            //     user: user.email,
-            //     timestamp: serverTimestamp()
-            // });
+            await addDoc(collectionRef, {
+                title: name + " - " + numPeople,
+                people: numPeople,
+                niceDate: dateString,
+                date: calendarDate,
+                fullDate: newDate,
+                user: user.email,
+                timestamp: serverTimestamp()
+            });
         });
 
         bookOnClose();
 
-        const dates = dateArray.length == 1 ? dateArray[0] : dateArray[0] + " -> " + dateArray[dateArray.length - 1];
-        const username = user.email.substring(0, user.email.indexOf('@'));
-        console.log('username', username);
-        console.log('dates', dates);
-        console.log('user', user);
-        await sendEmail({ from: user.email, date: dates, people: numPeople, user: username })
+        if (notify) {
+            const dates = dateArray.length == 1 ? dateArray[0] : dateArray[0] + " -> " + dateArray[dateArray.length - 1];
+            const username = user.email.substring(0, user.email.indexOf('@'));
+
+            await sendEmail({ from: user.email, date: dates, people: numPeople, user: username })
+        }
 
         toast({
             title: 'Success',
@@ -206,7 +206,7 @@ export default function Calendar({ events, user, db, name }) {
                             </Slider>
                         </Box>
                         <HStack placeContent="center" w="full" mt="5">
-                            <Switch size="lg" isChecked={notify} onClick={() => setNotify(!notify)}/>
+                            <Switch size="lg" isChecked={notify} onChange={() => setNotify(!notify)}/>
                             <Text>Notify Others</Text>
                         </HStack>
                         <Button my='10' w='100%' onClick={bookDates} bgColor="teal.300">
