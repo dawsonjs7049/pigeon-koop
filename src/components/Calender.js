@@ -4,8 +4,9 @@ import interactionPlugin from '@fullcalendar/interaction';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import { useRef, useState } from 'react';
 import { getDateRange, formatDate } from '@/utils/utilities';
-import { Box, Slider, SliderTrack, SliderFilledTrack, SliderThumb, ModalOverlay, Modal, Text, Button, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useDisclosure, HStack, useToast } from '@chakra-ui/react';
+import { Box, Slider, SliderTrack, SliderFilledTrack, SliderThumb, ModalOverlay, Modal, Text, Button, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useDisclosure, HStack, useToast, Switch } from '@chakra-ui/react';
 import { addDoc, collection, deleteDoc, doc, serverTimestamp, Timestamp, updateDoc } from 'firebase/firestore';
+import { sendEmail } from '@/utils/email';
 
 export default function Calendar({ events, user, db, name }) {
 
@@ -15,6 +16,7 @@ export default function Calendar({ events, user, db, name }) {
     const [numPeople, setNumPeople] = useState(1);
     const [dateString, setDateString] = useState();
     const [selectedDates, setSelectedDates] = useState();
+    const [notify, setNotify] = useState(true);
 
     const toast = useToast();
 
@@ -96,23 +98,33 @@ export default function Calendar({ events, user, db, name }) {
 
     const bookDates = async () => {
         const collectionRef = collection(db, 'reservations');
+        const dateArray = [];
 
         selectedDates.forEach(async (date) => {
             const newDate = new Date(date);
             const calendarDate = date.getUTCFullYear() + "-" + ("0" + (date.getUTCMonth()+1)).slice(-2) + "-" + ("0" + date.getUTCDate()).slice(-2)
             
-            await addDoc(collectionRef, {
-                title: name + " - " + numPeople,
-                people: numPeople,
-                niceDate: dateString,
-                date: calendarDate,
-                fullDate: newDate,
-                user: user.email,
-                timestamp: serverTimestamp()
-            });
+            dateArray.push(("0" + (date.getUTCMonth()+1)).slice(-2) + "-" + ("0" + date.getUTCDate()).slice(-2) + "-" + date.getUTCFullYear());
+
+            // await addDoc(collectionRef, {
+            //     title: name + " - " + numPeople,
+            //     people: numPeople,
+            //     niceDate: dateString,
+            //     date: calendarDate,
+            //     fullDate: newDate,
+            //     user: user.email,
+            //     timestamp: serverTimestamp()
+            // });
         });
 
         bookOnClose();
+
+        const dates = dateArray.length == 1 ? dateArray[0] : dateArray[0] + " -> " + dateArray[dateArray.length - 1];
+        const username = user.email.substring(0, user.email.indexOf('@'));
+        console.log('username', username);
+        console.log('dates', dates);
+        console.log('user', user);
+        await sendEmail({ from: user.email, date: dates, people: numPeople, user: username })
 
         toast({
             title: 'Success',
@@ -193,6 +205,10 @@ export default function Calendar({ events, user, db, name }) {
                                 <SliderThumb boxSize={6} />
                             </Slider>
                         </Box>
+                        <HStack placeContent="center" w="full" mt="5">
+                            <Switch size="lg" isChecked={notify} onClick={() => setNotify(!notify)}/>
+                            <Text>Notify Others</Text>
+                        </HStack>
                         <Button my='10' w='100%' onClick={bookDates} bgColor="teal.300">
                             Book
                         </Button>

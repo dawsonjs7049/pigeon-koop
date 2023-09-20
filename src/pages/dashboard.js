@@ -7,10 +7,11 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Event from "@/models/Event";
-import { Box, Flex, HStack, SlideFade, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, Flex, HStack, SlideFade, Text, VStack } from "@chakra-ui/react";
 import WeatherWidget from "@/components/WeatherWidget";
 import TodoList from "@/components/TodoList";
 import { useCallback } from "react";
+import { sendEmail } from "@/utils/email";
 
 export default function Dashboard() {
     const [events, setEvents] = useState();
@@ -61,9 +62,14 @@ export default function Dashboard() {
         }
     }, [user, loading]);
 
+    const email = async () => {
+        await sendEmail({ from: 'thechuck11@gmail.com', date: '12/01/2023 - 12/03/2023', people: '3', user: 'denny' });
+    }
+
     return (
         <Box overflowX='hidden' height='max'>
             <WeatherWidget/>
+            <Button onClick={() => email()}>Testing</Button>
             <Flex justifyContent='center'>
                 <VStack w='100%' maxW="1300px" p='5' height='max'>
                     <Flex flexDir='row' flexWrap='wrap' w='100%' my='10' alignItems='flex-start'>
