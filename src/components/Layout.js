@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Nav from './Nav';
 import Head from 'next/head';
-import { Box, Flex, HStack, Text, useColorMode, useColorModeValue } from '@chakra-ui/react';
+import { Box, Flex, HStack, Text, VStack, useColorMode, useColorModeValue } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
 export const DarkModeContext = React.createContext();
@@ -26,30 +26,46 @@ export default function Layout({ children })
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Flex flexDir='column' bg={bgColor} h='100vh' justifyContent='space-between' w='100vw' overflowX='hidden'>
-                <Box>
-                    {router.route !== '/' && 
-                        <Nav toggleColor={toggleColorMode} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
-                    }
+            {
+                router.route === '/' ? (
+                    <VStack h="full" w="full">
+                        { children }
+                    </VStack>
+                ) : (
                     <DarkModeContext.Provider value={isDarkMode}>
-                        <Box>
+                        <VStack bg={bgColor} h='100vh' w='100vw' overflowX='hidden'>
+                            <Nav toggleColor={toggleColorMode} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
                             { children }
-                        </Box>
+                            <HStack mt="auto" bg='black' width='full' p="4" justifyContent="center">
+                                <Text color='white' fontWeight='bold'>Notice a Problem? Too Bad</Text>
+                            </HStack>
+                        </VStack>
                     </DarkModeContext.Provider>
-                </Box>
-                <Box>
-                    {router.route !== '/' && 
-                        <>
-                            {/* a way to introduce padding without interfering with login page */}
-                            <Box h='10'></Box>
-                            <HStack h='40px' bg='gray.700' w='100%' justifyContent='center' alignItems='center' zIndex='1000' position='absolute' bottom='0'>
-                                <Text color='white' fontWeight='bold'>Notice a problem? Deal with it</Text>
-                            </HStack>     
-                        </>          
-                    }
-                </Box>
-            </Flex>
+                )
+            }
         </>
-       
     )
 }
+
+{/* <Flex flexDir='column' bg={bgColor} h='100vh' justifyContent='space-between' w='100vw' overflowX='hidden'>
+<Box className="content-container" h="full">
+    {router.route !== '/' && 
+        <Nav toggleColor={toggleColorMode} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+    }
+    <DarkModeContext.Provider value={isDarkMode}>
+        <VStack className="children-container" flexGrow={1}>
+            { children }
+        </VStack>
+    </DarkModeContext.Provider>
+</Box>
+<Box>
+    {router.route !== '/' && 
+        <>
+            <Box h='10'></Box>
+            <HStack h='40px' bg='gray.700' w='100%' justifyContent='center' alignItems='center' zIndex='1000' position='absolute' bottom='0'>
+                <Text color='white' fontWeight='bold'>Notice a problem? Deal with it</Text>
+            </HStack>     
+        </>          
+    }
+</Box>
+</Flex> */}

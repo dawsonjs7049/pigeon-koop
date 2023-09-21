@@ -23,7 +23,7 @@ export default function Nav({ toggleColor, isDarkMode, setIsDarkMode })
     }
 
     return (
-        <Flex justifyContent='center' bg='blue.600' h='76px'>
+        <Flex justifyContent='center' bg='blue.600' h='76px' w='full'>
             <VStack w='100%' maxW='1300px'>
                 <HStack px="4" pt='2' w='100%'>
                     <Link href={"/dashboard"}>
@@ -81,7 +81,7 @@ export default function Nav({ toggleColor, isDarkMode, setIsDarkMode })
                                     <HStack w='100%' zIndex='1000'>
                                         <motion.div
                                             key={'photosLink'}
-                                            style={{width: '33%'}}
+                                            style={{width: '24%'}}
                                             initial="initialState"
                                             animate="animateState"
                                             exit="exitState"
@@ -107,7 +107,7 @@ export default function Nav({ toggleColor, isDarkMode, setIsDarkMode })
                                         </motion.div>
                                         <motion.div
                                             key={'expenseLink'}
-                                            style={{width: '33%'}}
+                                            style={{width: '24%'}}
                                             initial="initialState"
                                             animate="animateState"
                                             exit="exitState"
@@ -133,7 +133,33 @@ export default function Nav({ toggleColor, isDarkMode, setIsDarkMode })
                                         </motion.div>
                                         <motion.div
                                             key={'mapLink'}
-                                            style={{width: '33%'}}
+                                            style={{width: '24%'}}
+                                            initial="initialState"
+                                            animate="animateState"
+                                            exit="exitState"
+                                            transition={{ duration: 1 }}
+                                            variants={{
+                                                initialState: {
+                                                    opacity: 0,
+                                                    x: '-30px'
+                                                },
+                                                animateState: {
+                                                    opacity: 1,
+                                                    x: '0px'
+                                                },
+                                                exitState: {
+                                                    opacity: 0, 
+                                                    x: '30px'
+                                                }
+                                            }}
+                                            >
+                                                 <Link href="/movies">
+                                                    <Text color='black' fontWeight='bold' fontSize='xl' textAlign='center'>Movies</Text>
+                                                </Link>
+                                        </motion.div>
+                                        <motion.div
+                                            key={'mapLink'}
+                                            style={{width: '24%'}}
                                             initial="initialState"
                                             animate="animateState"
                                             exit="exitState"

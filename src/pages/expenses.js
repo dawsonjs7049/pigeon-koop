@@ -212,7 +212,7 @@ export default function Expenses() {
     }
 
     return (
-        <Flex justifyContent='center' h='100%'>
+        <Flex justifyContent='center' h='100%' w="full">
             <VStack w='100%' maxW="1300px" p='5'>
                 <Box mt='5' w='100%'>
                     <HStack w='100%'>

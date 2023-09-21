@@ -63,7 +63,7 @@ export default function Dashboard() {
     }, [user, loading]);
 
     return (
-        <Box overflowX='hidden' height='max'>
+        <Box className="dashboard-container" overflowX='hidden' w="full" h="full" mt="0 !important" p="0">
             <WeatherWidget/>
             <Flex justifyContent='center'>
                 <VStack w='100%' maxW="1300px" p='5' height='max'>
