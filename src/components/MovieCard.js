@@ -48,7 +48,7 @@ export default function MovieCard({ movie, index, user, handleDelete }) {
                 onMouseLeave={onToggle}
                 >
                 <Box w="12%" p="3">     
-                    <Button w="full" onClick={() => handleUpdateLike(movie)}>
+                    <Button w="full" _dark={{ bgColor: 'ghostwhite' }} onClick={() => handleUpdateLike(movie)}>
                         <FiThumbsUp fontSize='20px' fill={isLiked ? 'black' : 'white'} /> 
                         {movie.likes.length > 0 && 
                             <Text ml='2'>{movie.likes.length}</Text>

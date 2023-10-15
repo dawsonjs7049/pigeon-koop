@@ -2,7 +2,7 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { getDateRange, formatDate } from '@/utils/utilities';
 import { Box, Slider, SliderTrack, SliderFilledTrack, SliderThumb, ModalOverlay, Modal, Text, Button, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useDisclosure, HStack, useToast, Switch } from '@chakra-ui/react';
 import { addDoc, collection, deleteDoc, doc, serverTimestamp, Timestamp, updateDoc } from 'firebase/firestore';
@@ -22,15 +22,17 @@ export default function Calendar({ events, user, db, name }) {
 
     const calendarRef = useRef();
 
-    const sources = [
-        {
-            events
-        },
-        {
-            googleCalendarId: 'en.usa#holiday@group.v.calendar.google.com',
-            color: 'green',
-        }
-    ];
+    const sources = useMemo(() => {
+        return [
+            {
+                events
+            },
+            {
+                googleCalendarId: 'en.usa#holiday@group.v.calendar.google.com',
+                color: 'green',
+            }
+        ];
+    }, [events]);
 
     const onSelect = (info) => {
         let dates = getDateRange(info.start, info.end);

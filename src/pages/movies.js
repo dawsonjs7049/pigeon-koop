@@ -133,7 +133,7 @@ console.log('adding movie', movieName)
 
     const randomize = () => {
         const random = Math.floor(Math.random() * allMovies.length);
-        console.log('random', random);
+
         setSearchInput(allMovies[random].name)
     }
 
@@ -148,7 +148,7 @@ console.log('adding movie', movieName)
                 </HStack>
                 <HStack color='black' mt='5' p='8' w='100%' borderRadius='md' shadow='md' bg='ghostwhite' justifyContent="space-between">
                     <HStack>
-                        <Input w="300px" type="text" bg="white" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} placeholder="Search Movies..."/>
+                        <Input w="300px" type="text" bg="white" _placeholder={{ color: 'gray.400' }} value={searchInput} onChange={(e) => setSearchInput(e.target.value)} placeholder="Search Movies..."/>
                         <Box w="180px">
                             <ReactSelect
                                 defaultValue={filterTypes[0]}
@@ -160,7 +160,7 @@ console.log('adding movie', movieName)
                     </HStack>
                     <Button bg="blue.500" onClick={() => randomize()}><Icon as={FaDice} color="white" boxSize="6"/></Button>
                 </HStack>
-                <VStack w="100%" p="1" flexGrow="1" overflowY="auto" mt="10" alignItems="flex-start" justifyContent="flex-start" gap="2">
+                <VStack w="100%" p="1" flexGrow="1" overflowY="auto" mt="10" _dark={{ color: 'black' }} alignItems="flex-start" justifyContent="flex-start" gap="2">
                     <motion.div layout style={{ width: '100%', height: '100%', paddingTop: '20px' }} className="motion-container">
                         {filteredMovies && filteredMovies.length > 0 && 
                             filteredMovies.map((movie, index) => {
